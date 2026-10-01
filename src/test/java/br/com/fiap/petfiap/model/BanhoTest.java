@@ -30,4 +30,13 @@ public class BanhoTest {
         // Assert
         assertEquals(45, duracao);
     }
+
+    @Test
+    public void deveCustar100ReaisQuandoPorteForGrande() {
+        Banho banho = new Banho(1, "Thor", "GRANDE", "Carla", LocalDateTime.of(2026, 10, 1, 10, 0));
+
+        double preco = banho.calcularPreco();
+
+        assertEquals(100.0, preco, 0.001);
+    }
 }
