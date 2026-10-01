@@ -7,6 +7,7 @@ import br.com.fiap.petfiap.repository.AtendimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,8 +18,11 @@ public class AgendaService {
     @Autowired
     private AtendimentoRepository repository;
 
-    // Agenda um novo atendimento: recusa horario ja ocupado pelo mesmo pet.
+    // Agenda um novo atendimento: recusa data/hora no passado e horario ja ocupado pelo mesmo pet.
     public Atendimento agendar(Atendimento novo) {
+        if (novo.getDataHora() == null || novo.getDataHora().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Data/hora do atendimento deve estar no futuro");
+        }
         List<Atendimento> doPet = repository.findByPetNome(novo.getPetNome());
         for (Atendimento a : doPet) {
             if (Objects.equals(a.getPetNome(), novo.getPetNome())
