@@ -138,4 +138,22 @@ public class AgendaServiceTest {
         verify(repository, never()).findByPetNome(any());
         verify(repository, never()).save(any());
     }
+
+    @Test
+    public void deveAgendarQuandoMesmoHorarioMasAtendimentoAnteriorCancelado() {
+        // Arrange: o Rex tinha banho nesse horario, mas foi CANCELADO (nao ocupa a agenda)
+        Banho cancelado = banhoDoRexAmanha10h();
+        cancelado.setStatus("CANCELADO");
+        when(repository.findByPetNome("Rex")).thenReturn(List.of(cancelado));
+
+        Banho novo = new Banho(2, "Rex", "PEQUENO", "Ana", LocalDateTime.parse(cancelado.getDataHora().toString()));
+        when(repository.save(novo)).thenReturn(novo);
+
+        // Act
+        Atendimento salvo = service.agendar(novo);
+
+        // Assert
+        assertEquals("AGENDADO", salvo.getStatus());
+        verify(repository).save(novo);
+    }
 }
