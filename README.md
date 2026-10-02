@@ -2,14 +2,9 @@
 
 ## Identificação
 
-**Grupo:** ___ (preencher)
-
-| Integrante | RM | Turma |
-|---|---|---|
-| | | |
-| | | |
-| | | |
-| | | |
+Nome: Laís Krajner Lacerda
+RM: 563182
+Turma: 2CCPH
 
 | Campo | |
 |---|---|
@@ -86,11 +81,3 @@ O `GeradorProtocolo` deve garantir uma única instância na aplicação, com con
 
 ### 6. Cobertura de testes: onde parar? (Aula 15)
 Dos 6 testes novos, 4 ficaram vermelhos (preço do banho, duração da tosa, cancelar concluído, data no passado) e 2 verdes (preço fixo da consulta, horário com atendimento cancelado). Vale manter os verdes: eles documentam uma regra do contrato e protegem contra regressão; o `teste06`, por exemplo, impediria que alguém "simplificasse" o loop do `agendar` e removesse a checagem de `STATUS_AGENDADO`, passando a bloquear horários de atendimentos cancelados. Custam milissegundos. Num projeto real com prazo apertado, priorizaríamos primeiro o caminho feliz de cada fluxo (agendar, concluir, cancelar) e logo em seguida os caminhos de erro das regras de negócio: os 4 bugs escondidos estavam todos em regras que ninguém testava (preço, duração, status, data). Perseguir 100% de cobertura de linhas tem retorno decrescente (getters/setters, por exemplo); cobertura é meio, não fim. O critério é risco: onde um erro custaria dinheiro ou confiança do tutor, o teste vem primeiro.
-
----
-
-## Parte 5 — Espaço livre (opcional)
-
-```
-
-```
